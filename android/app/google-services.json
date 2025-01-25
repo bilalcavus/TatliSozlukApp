@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501677723437",
+    "project_id": "tatlisozluk-8f8c6",
+    "storage_bucket": "tatlisozluk-8f8c6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501677723437:android:fa0b7e2c046fc89aeacda4",
+        "android_client_info": {
+          "package_name": "com.example.tatli_sozluk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoxEfK2ygVFcf2HMsDSsnEei0w1DvR5Vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
