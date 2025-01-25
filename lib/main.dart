@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tatli_sozluk/firebase_options.dart';
 import 'package:tatli_sozluk/screens/home_page_view.dart';
+import 'package:tatli_sozluk/screens/title_view_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -25,11 +27,11 @@ class MyApp extends StatelessWidget {
         '/profilePage': (context) => const HomePageView(),
       },
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePageView(),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
+      home: const TitleViewPage(),
     );
   }
 }

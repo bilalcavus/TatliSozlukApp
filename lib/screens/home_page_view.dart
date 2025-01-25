@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 import 'package:tatli_sozluk/components/custom_bottom_navbar.dart';
+import 'package:tatli_sozluk/screens/title_view_page.dart';
 import 'package:tatli_sozluk/services/firestore.dart';
 import 'package:tatli_sozluk/viewModel/bottom_navigation_controller.dart';
 
@@ -36,38 +37,17 @@ class _HomePageViewState extends State<HomePageView> {
           )
         ],
       ));
-    } 
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Anasayfa'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.scrim,
         ),
-      body:  StreamBuilder<QuerySnapshot>(
-        stream: firestoreService.getTitles(),
-        builder: (context,snapshot){
-          if (snapshot.hasData) {
-            List titlesList = snapshot.data!.docs;
-            return ListView.builder(
-            itemCount: titlesList.length,
-            itemBuilder: (context,index){
-              DocumentSnapshot document = titlesList[index];
-              String docID = document.id;
-              Map<String,dynamic> data = document.data() as Map<String,dynamic>;
-              String titleText = data['title'];
+      body:  showTitles(),
       
-              return ListTile(
-                title: Text(titleText),
-              );
-            });
-          }
-          else {
-            return const Text('no data');
-          }
-        }
-        ),
       floatingActionButton: FloatingActionButton(
         onPressed: openTitleBox,
         child: const Icon(Icons.add),
@@ -78,4 +58,38 @@ class _HomePageViewState extends State<HomePageView> {
       )),
     );
   }
+
+  StreamBuilder<QuerySnapshot<Object?>> showTitles() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestoreService.getTitles(),
+      builder: (context,snapshot){
+        if (snapshot.hasData) {
+          List titlesList = snapshot.data!.docs;
+          return ListView.builder(
+          itemCount: titlesList.length,
+          itemBuilder: (context,index){
+            DocumentSnapshot document = titlesList[index];
+            String docID = document.id;
+            Map<String,dynamic> data = document.data() as Map<String,dynamic>;
+            String titleText = data['title'];
+    
+            return ListTile(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => const TitleViewPage(),
+                  settings: RouteSettings(arguments: {'docID': docID, 'titleText': titleText} )));
+              },
+              title: Text(titleText),
+            );
+          });
+        }
+        else {
+          return const Text('no data');
+        }
+      }
+      );
+  }
 }
+
+
+

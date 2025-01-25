@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -14,7 +15,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: const Color.fromARGB(255, 234, 236, 243),
+      backgroundColor: Colors.black,
       currentIndex: selectedIndex,
       onTap: (int index) {  
         onItemTapped(index);
@@ -36,19 +37,19 @@ class CustomBottomNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Iconsax.home),
           label: 'Anasayfa',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Icon(Iconsax.search_normal_1),
           label: 'Arama',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.notifications),
+          icon: Icon(Iconsax.notification4),
           label: 'Bildirimler',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(Iconsax.user4),
           label: 'Hesabım',
         ),
       ],
