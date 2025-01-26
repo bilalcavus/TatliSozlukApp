@@ -41,12 +41,13 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 27, 26, 26),
       appBar: AppBar(
         actions: [
-          TextButton(onPressed: () {}, child: Text('bugün')),
-          TextButton(onPressed: () {}, child: Text('gundem')),
-          TextButton(onPressed: () {}, child: Text('tarihte bugun')),
-          TextButton(onPressed: () {}, child: Text('takip')),
+          TextButton(onPressed: () {}, child: Text('bugün', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),)),
+          TextButton(onPressed: () {}, child: Text('gundem', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),)),
+          TextButton(onPressed: () {}, child: Text('tarihte bugun', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),)),
+          TextButton(onPressed: () {}, child: Text('takip', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),)),
         ],
       ),
       body:  Column(
@@ -84,6 +85,8 @@ class _HomePageViewState extends State<HomePageView> {
       ),
       
       floatingActionButton: FloatingActionButton(
+        backgroundColor:Color.fromARGB(255, 221, 185, 95),
+        foregroundColor: Colors.black,
         onPressed: openTitleBox,
         child: const Icon(Icons.add),
       ),

@@ -19,21 +19,24 @@ class _AddEntryViewState extends State<AddEntryView> {
     String titleText = args?['titleText'] ?? 'baslik bulunamadi';
     return Scaffold(
       appBar: AppBar(
+        title: Text(titleText),
         actions: [
           TextButton(onPressed: (){
               firestoreService.addEntry(docID, textEditingController.text);
               textEditingController.clear();
               Navigator.of(context).pop();
-          }, child: const Text('Ekle') )
+          }, child: const Text('uçur', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),), )
         ],
       ),
-      body: Column(
-        children: [
-          Text(titleText),
-          TextField(
-            controller: textEditingController,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          decoration: const InputDecoration(
+            hintText: 'entry gir',    
           ),
-        ],
+          controller: textEditingController,
+          
+        ),
       ),
     );
   }

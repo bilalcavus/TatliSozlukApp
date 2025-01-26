@@ -24,19 +24,20 @@ Future<void> addEntry (String titleId, String entryText) async {
         'title': title,
         'timestamp': Timestamp.now(),
         });
+    }
     Future<void> deleteTitle(String docID) async {
       titles.doc(docID).delete();
     }
-    
-    }
-}
-
-class DeleteEntryService {
-  final CollectionReference titles =
-    FirebaseFirestore.instance.collection('titles');
-  Future<void> deleteEntry(String titleId, String entryId) async {
+    Future<void> deleteEntry(String titleId, String entryId) async {
     final entryCollection = titles.doc(titleId).collection('entries');
     await entryCollection.doc(entryId).delete();
   }
-  
+  Future<QuerySnapshot<Object?>> searchTitle(String query) async {
+    
+      final searchResults = await titles
+      .where('title', isGreaterThanOrEqualTo: query)
+      .where('title', isLessThanOrEqualTo: query+ '\uf8ff')
+      .get();
+      return searchResults;
+  }
 }
