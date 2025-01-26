@@ -41,8 +41,47 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body:  showTitles(),
+      appBar: AppBar(
+        actions: [
+          TextButton(onPressed: () {}, child: Text('bugün')),
+          TextButton(onPressed: () {}, child: Text('gundem')),
+          TextButton(onPressed: () {}, child: Text('tarihte bugun')),
+          TextButton(onPressed: () {}, child: Text('takip')),
+        ],
+      ),
+      body:  Column(
+        children: [
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+            stream: firestoreService.getTitles(),
+            builder: (context,snapshot){
+              if (snapshot.hasData) {
+                List titlesList = snapshot.data!.docs;
+                return ListView.builder(
+                itemCount: titlesList.length,
+                itemBuilder: (context,index){
+                  DocumentSnapshot document = titlesList[index];
+                  String docID = document.id;
+                  Map<String,dynamic> data = document.data() as Map<String,dynamic>;
+                  String titleText = data['title'];
+                  return ListTile(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const TitleViewPage(),
+                        settings: RouteSettings(arguments: {'docID': docID, 'titleText': titleText} )));
+                    },
+                    title: Text(titleText, style : const TextStyle(fontSize: 16)),
+                  );
+                });
+              }
+              else {
+                return const Text('no data');
+              }
+            }
+            ),
+          ),
+        ],
+      ),
       
       floatingActionButton: FloatingActionButton(
         onPressed: openTitleBox,
@@ -55,41 +94,7 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  StreamBuilder<QuerySnapshot<Object?>> showTitles() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: firestoreService.getTitles(),
-      builder: (context,snapshot){
-        if (snapshot.hasData) {
-          List titlesList = snapshot.data!.docs;
-          return ListView.builder(
-          itemCount: titlesList.length,
-          itemBuilder: (context,index){
-            DocumentSnapshot document = titlesList[index];
-            String docID = document.id;
-            Map<String,dynamic> data = document.data() as Map<String,dynamic>;
-            String titleText = data['title'];
-    
-            return Column(
-              children: [
 
-                ListTile(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const TitleViewPage(),
-                      settings: RouteSettings(arguments: {'docID': docID, 'titleText': titleText} )));
-                  },
-                  title: Text(titleText),
-                ),
-              ],
-            );
-          });
-        }
-        else {
-          return const Text('no data');
-        }
-      }
-      );
-  }
 }
 
 

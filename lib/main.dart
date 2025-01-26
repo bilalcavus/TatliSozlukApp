@@ -4,7 +4,6 @@ import 'package:tatli_sozluk/firebase_options.dart';
 import 'package:tatli_sozluk/screens/home_page_view.dart';
 import 'package:tatli_sozluk/screens/notifications_view.dart';
 import 'package:tatli_sozluk/screens/search_page_view.dart';
-import 'package:tatli_sozluk/screens/title_view_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       //   useMaterial3: true,
       // ),
-      home: const TitleViewPage(),
+      home: const HomePageView(),
     );
   }
 }

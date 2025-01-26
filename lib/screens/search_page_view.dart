@@ -8,6 +8,7 @@ class SearchPageView extends StatefulWidget {
 }
 
 class _SearchPageViewState extends State<SearchPageView> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +16,18 @@ class _SearchPageViewState extends State<SearchPageView> {
         title: const Text('Arama'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Arama Sayfası'),
-      ),
+      body:  Column(
+        children: [
+           TextField(
+            controller: searchController,
+            decoration: const InputDecoration(
+              hintText: 'Ara',
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+          
+        ],
+      )
     );
   }
 }
