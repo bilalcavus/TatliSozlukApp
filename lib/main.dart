@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tatli_sozluk/firebase_options.dart';
 import 'package:tatli_sozluk/screens/home_page_view.dart';
+import 'package:tatli_sozluk/screens/notifications_view.dart';
+import 'package:tatli_sozluk/screens/search_page_view.dart';
 import 'package:tatli_sozluk/screens/title_view_page.dart';
 
 void main() async {
@@ -22,8 +24,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/homePage': (context) => const HomePageView(),
-        '/searchPage': (context) => const HomePageView(),
-        '/notificationPage': (context) => const HomePageView(),
+        '/searchPage': (context) => const SearchPageView(),
+        '/notificationPage': (context) => const NotificationsView(),
         '/profilePage': (context) => const HomePageView(),
       },
       title: 'Flutter Demo',

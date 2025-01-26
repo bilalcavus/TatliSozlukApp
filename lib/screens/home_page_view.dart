@@ -41,11 +41,7 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Anasayfa'),
-        backgroundColor: Theme.of(context).colorScheme.scrim,
-        ),
+      
       body:  showTitles(),
       
       floatingActionButton: FloatingActionButton(
@@ -73,13 +69,18 @@ class _HomePageViewState extends State<HomePageView> {
             Map<String,dynamic> data = document.data() as Map<String,dynamic>;
             String titleText = data['title'];
     
-            return ListTile(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const TitleViewPage(),
-                  settings: RouteSettings(arguments: {'docID': docID, 'titleText': titleText} )));
-              },
-              title: Text(titleText),
+            return Column(
+              children: [
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => const TitleViewPage(),
+                      settings: RouteSettings(arguments: {'docID': docID, 'titleText': titleText} )));
+                  },
+                  title: Text(titleText),
+                ),
+              ],
             );
           });
         }
