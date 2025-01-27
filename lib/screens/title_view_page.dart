@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:iconsax/iconsax.dart';
@@ -18,6 +19,7 @@ class _TitleViewPageState extends State<TitleViewPage> {
     final TextEditingController textEditingController = TextEditingController();
     final BottomNavigationController itemController = Get.put(BottomNavigationController());
     final FirestoreService firestoreService = FirestoreService();
+    final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,11 @@ class _TitleViewPageState extends State<TitleViewPage> {
           IconButton(
             icon: Icon(Iconsax.pen_add5) ,
             onPressed: (){
-              Navigator.push(context, 
+              if (user == null) {
+                Navigator.pushReplacementNamed(context, '/authPage');
+              }
+              else{
+                Navigator.push(context, 
                 MaterialPageRoute(
                   builder: (context) => const AddEntryView(),
                   settings: RouteSettings(
@@ -46,6 +52,8 @@ class _TitleViewPageState extends State<TitleViewPage> {
                   ),
                 ),
               );
+              }
+              
             },
             )
         ],

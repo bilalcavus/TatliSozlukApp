@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tatli_sozluk/services/firestore.dart';
 
 class AccountPageView extends StatefulWidget {
   const AccountPageView({super.key});
@@ -8,6 +9,7 @@ class AccountPageView extends StatefulWidget {
 }
 
 class _AccountPageViewState extends State<AccountPageView> {
+  FirestoreService firestoreService = FirestoreService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +17,10 @@ class _AccountPageViewState extends State<AccountPageView> {
         title: const Text('Hesabım'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Hesabım Sayfası'),
+      body:  Center(
+        child: TextButton(onPressed: (){
+          firestoreService.logoutUser();
+        }, child: Text('çıkış')),
       ),
     );
   }
