@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tatli_sozluk/components/custom_colors.dart';
+import 'package:tatli_sozluk/constants/text_strings.dart';
 import 'package:tatli_sozluk/services/firestore.dart';
 
 class AddEntryView extends StatefulWidget {
@@ -7,7 +9,6 @@ class AddEntryView extends StatefulWidget {
   @override
   State<AddEntryView> createState() => _AddEntryViewState();
 }
-
 class _AddEntryViewState extends State<AddEntryView> {
     final TextEditingController textEditingController = TextEditingController();
     final FirestoreService firestoreService = FirestoreService();
@@ -25,17 +26,14 @@ class _AddEntryViewState extends State<AddEntryView> {
               firestoreService.addEntry(docID, textEditingController.text);
               textEditingController.clear();
               Navigator.of(context).pop();
-          }, child: const Text('uçur', style: TextStyle(color: Color.fromARGB(255, 221, 185, 95),),), )
+          }, child:  Text(TextStrings.entrySend, style: TextStyle(color: CustomColors().entryIconButtonColor)))
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextField(
-          decoration: const InputDecoration(
-            hintText: 'entry gir',    
-          ),
+          decoration: const InputDecoration(hintText: TextStrings.entryTextfieldHintText),
           controller: textEditingController,
-          
         ),
       ),
     );
