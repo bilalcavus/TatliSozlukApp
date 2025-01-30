@@ -5,14 +5,17 @@ class FirestoreService {
   final CollectionReference titles =
       FirebaseFirestore.instance.collection('titles');
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  DateTime now = DateTime.now();
+  DateTime startOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day); // 00:00
+  DateTime endOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59, 59); // 23:59:59
 
-  // Title ve Entry İşlemleri
+
   Future<void> addEntry(String titleId, String entryText) async {
     final entryCollection = titles.doc(titleId).collection('entries');
     await entryCollection.add({
       'entryContext': entryText,
       'timestamp': Timestamp.now(),
-      'userId': _auth.currentUser?.uid, // Kullanıcı ID'si kaydediliyor
+      'userId': _auth.currentUser?.uid,
     });
   }
 
@@ -20,6 +23,17 @@ class FirestoreService {
     final entriesStream = titles
         .doc(titleId)
         .collection('entries')
+        .orderBy('timestamp', descending: false)
+        .snapshots();
+    return entriesStream;
+  }
+
+  Stream<QuerySnapshot> getTodayEntries(String titleId) {
+    final entriesStream = titles
+        .doc(titleId)
+        .collection('entries')
+        .where('timestamp', isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
+        .where('timestamp', isLessThanOrEqualTo: Timestamp.fromDate(endOfDay))
         .orderBy('timestamp', descending: true)
         .snapshots();
     return entriesStream;
@@ -35,7 +49,7 @@ class FirestoreService {
     titles.add({
       'title': title,
       'timestamp': Timestamp.now(),
-      'userId': _auth.currentUser?.uid, // Kullanıcı ID'si kaydediliyor
+      'userId': _auth.currentUser?.uid,
     });
   }
 
@@ -56,7 +70,6 @@ class FirestoreService {
     return searchResults;
   }
 
-  // Kullanıcı Kayıt ve Giriş İşlemleri
   Future<User?> registerUser(String email, String password) async {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(

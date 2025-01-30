@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -43,17 +42,11 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Hello again!
-              Text('Hello again', style: TextStyle(color: Colors.black)),
-              SizedBox(height: 10,),
-              Text('Register below with your details', style: TextStyle(fontSize: 20, color: Colors.black),),
-              SizedBox(height: 50,),
               //email textfield
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -66,11 +59,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   child:  Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.black),
                       controller: _emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
-                        hintStyle: TextStyle(color: Colors.black)
+                        hintStyle: TextStyle(color: Colors.grey)
                       ),
                     ),
                   ),
@@ -83,44 +77,45 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.grey[300],
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child:  Padding(
                     padding:  EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.black),
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.black)
+                        hintStyle: TextStyle(color: Colors.grey)
                       ),
                     ),
                   ),
                 ),
               ),
               SizedBox(height: 10,),
-
               //confirm password
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.grey[300],
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child:  Padding(
                     padding:  EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.black),
                       controller: _confirmPasswordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Confirm Password',
-                        hintStyle: TextStyle(color: Colors.black)
+                        hintStyle: TextStyle(color: Colors.grey)
                       ),
                     ),
                   ),
@@ -134,11 +129,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap:  signUp,
                   child: Container(
                     padding: const EdgeInsets.all(25),
-                    decoration: BoxDecoration(color: Colors.deepPurple,
+                    decoration: BoxDecoration(color:Color.fromARGB(255, 128, 86, 83),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     child:  Center(
-                      child: Text('sign in',
+                      child: Text('kayıt ol',
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
                       fontSize: 18),),
                     ),
@@ -151,14 +146,14 @@ class _RegisterPageState extends State<RegisterPage> {
                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('I am a member ', style: TextStyle(
+                  Text('zaten kayıt oldum!  ', style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black
+                    color: Colors.white
                   ),),
                   GestureDetector(
                     onTap: widget.showLoginPage,
                     child: Text(
-                      'Login now',
+                      'giriş yap',
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold

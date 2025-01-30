@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tatli_sozluk/controller/auth_controller.dart';
 import 'package:tatli_sozluk/firebase_options.dart';
 import 'package:tatli_sozluk/screens/auth/login_page.dart';
-import 'package:tatli_sozluk/screens/auth_controller.dart';
 import 'package:tatli_sozluk/screens/home_page_view.dart';
 import 'package:tatli_sozluk/screens/notifications_view.dart';
 import 'package:tatli_sozluk/screens/search_page_view.dart';

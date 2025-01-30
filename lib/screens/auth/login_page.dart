@@ -2,9 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -35,34 +32,30 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black12,
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Hello again!
-              Text('Hello again', style: TextStyle(color: Colors.black)),
-              SizedBox(height: 10,),
-              Text('Welcome back, you\'ve been missed!', style: TextStyle(fontSize: 20, color: Colors.black),),
-              SizedBox(height: 50,),
               //email textfield
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.grey[300],
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child:  Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.black),
                       controller: _emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
-                        hintStyle: TextStyle(color: Colors.black)
+                        hintStyle: TextStyle(color: Colors.grey)
                       ),
                     ),
                   ),
@@ -75,19 +68,20 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.grey[300],
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child:  Padding(
                     padding:  EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.black),
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'password',
-                        hintStyle: TextStyle(color: Colors.black)
+                        hintText: 'Password',
+                        hintStyle: TextStyle(color: Colors.grey)
                       ),
                     ),
                   ),
@@ -101,11 +95,11 @@ class _LoginPageState extends State<LoginPage> {
                   onTap:  signIn,
                   child: Container(
                     padding: const EdgeInsets.all(25),
-                    decoration: BoxDecoration(color: Colors.deepPurple,
+                    decoration: BoxDecoration(color: Color.fromARGB(255, 128, 86, 83),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     child:  Center(
-                      child: Text('sign in',
+                      child: Text('giriş yap',
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
                       fontSize: 18),),
                     ),
@@ -118,14 +112,14 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('not a member? ', style: TextStyle(
+                  Text('üye olmadın mı? ', style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black
+                    
                   ),),
                   GestureDetector(
                     onTap: widget.showRegisterPage,
                     child: Text(
-                      'Register now',
+                      'kayıt ol',
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold

@@ -10,9 +10,11 @@ class StreamBuilderContent extends StatelessWidget {
   });
 
   final TitleOpController controller;
+  
 
 @override
   Widget build(BuildContext context) {
+    
   return StreamBuilder<QuerySnapshot>(
     stream: controller.firestoreService.getTitles(),
     builder: (context,snapshot){
@@ -29,15 +31,25 @@ class StreamBuilderContent extends StatelessWidget {
         });
       }
       else {
-        return  const CircularProgressIndicator();
+        return const Text('basliklar yükleniyor...');
       }
     }
     );
   }
 
 ListTile titleListTile(BuildContext context, String docID, String titleText) {
+  int entryCount;
   return ListTile(
-    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    trailing: StreamBuilder<QuerySnapshot>(
+        stream: controller.firestoreService.getEntries(docID),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Text("0", style: TextStyle(fontSize: 14));
+          }
+          entryCount = snapshot.data!.docs.length;
+          return Text(entryCount.toString(), style: const TextStyle(fontSize: 14));
+        },
+      ),
     onTap: () {
       Navigator.push(context, MaterialPageRoute(
         builder: (context) => const TitleViewPage(),
