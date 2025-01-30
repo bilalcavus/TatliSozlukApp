@@ -60,7 +60,7 @@ IconButton appBarIcons(BuildContext context, String docID, String titleText) {
   return IconButton(
     icon: const Icon(Iconsax.pen_add5) ,
     onPressed: (){
-      if (user == null) Navigator.pushReplacementNamed(context, '/authPage');
+      if (user == null) Navigator.pushReplacementNamed(context, '/loginPage');
       else{
         Navigator.push(context, MaterialPageRoute(
           builder: (context) => const AddEntryView(),

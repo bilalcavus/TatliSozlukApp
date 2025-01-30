@@ -6,4 +6,5 @@ class TextStrings {
   static const String errorTitle = 'baslik bulunamadi';
   static const String entrySend = 'uçur';
   static const String entryTextfieldHintText = 'entry gir';
+  static const String accountLoginWarning = 'Henüz giriş yapmadınız. Giriş yapmak için tıklayın';
 }
