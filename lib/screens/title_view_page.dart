@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
@@ -25,8 +24,17 @@ class _TitleViewPageState extends State<TitleViewPage> {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    String docID = args?['docID'] ?? '';
-    String titleText = args?['titleText'] ?? '';
+    
+    if (args == null || args['docID'] == null || args['titleText'] == null) {
+      return const Scaffold(
+        body: Center(
+          child: Text(TextStrings.gecersizParametre),
+        ),
+      );
+    }
+
+    String docID = args['docID'];
+    String titleText = args['titleText'];
     return  Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.scrim,

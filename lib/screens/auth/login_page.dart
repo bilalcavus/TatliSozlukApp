@@ -2,6 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tatli_sozluk/components/custom_colors.dart';
+import 'package:tatli_sozluk/constants/text_strings.dart';
+import 'package:tatli_sozluk/constants/text_styles.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -34,97 +37,35 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.black12,
       body: SafeArea(
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //email textfield
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child:  Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      style: TextStyle(color: Colors.black),
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email',
-                        hintStyle: TextStyle(color: Colors.grey)
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          const SizedBox(height: 10,),
-          
-              //password textfield
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child:  Padding(
-                    padding:  EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      style: TextStyle(color: Colors.black),
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.grey)
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              //sign in button
+              Image.asset('assets/logo_sozluk.png', height: 250),
+              buildTextField(_emailController,'email', false),
+              const SizedBox(height: 10),
+              buildTextField(_passwordController, 'şifre', true),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
                   onTap:  signIn,
                   child: Container(
                     padding: const EdgeInsets.all(25),
-                    decoration: BoxDecoration(color: Color.fromARGB(255, 128, 86, 83),
-                      borderRadius: BorderRadius.circular(12)
-                    ),
-                    child:  Center(
-                      child: Text('giriş yap',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
-                      fontSize: 18),),
+                    decoration: BoxDecoration(color: CustomColors().boxDecoration, borderRadius: BorderRadius.circular(12)),
+                    child:  Center(child: Text(TextStrings.loginbtnText, style: TextStyles().loginbuttonStyle),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 25,),
-
-              //not a member? register now
+              const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('üye olmadın mı? ', style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    
-                  ),),
+                  Text(TextStrings.notAlreadyLoginText, style: TextStyles().notAlreadyLogin),
                   GestureDetector(
                     onTap: widget.showRegisterPage,
-                    child: Text(
-                      'kayıt ol',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
+                    child: Text(TextStrings.registerbtnText, style: TextStyles().loginStringTextStyle),
                   )
                 ],
               )
@@ -134,4 +75,22 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  EdgeInsets textFieldPadding = EdgeInsets.symmetric(horizontal: 25.0);
+  Widget buildTextField(TextEditingController controller, String hintText,bool isSecure) {
+  return Padding(
+    padding: textFieldPadding,
+    child: customTextField(controller, hintText, isSecure),
+  );
+}
+  TextField customTextField(controller, String hintText, bool isSecure) {
+    return TextField(
+      controller: controller,
+      obscureText: isSecure,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.grey),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        filled: false,
+        fillColor: Colors.grey[200]));
+      }
 }

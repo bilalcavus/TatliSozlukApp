@@ -13,47 +13,22 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 class _HomePageViewState extends State<HomePageView> {
+  final TitleOpController controller = Get.put(TitleOpController());
+  final BottomNavigationController itemController = Get.put(BottomNavigationController());
   @override
   Widget build(BuildContext context) {
-      final TitleOpController controller = Get.put(TitleOpController());
-      final BottomNavigationController itemController = Get.put(BottomNavigationController());
-  void openTitleBox() {
-      showDialog(context: context, builder: (context) => AlertDialog(
-        content: TextField(
-          controller: controller.textEditingController,
-          decoration: const InputDecoration(
-            hintText: 'Başlık giriniz',
-            labelText: 'Başlık',
-          ),
-        ),
-        actions: [
-          ElevatedButton(onPressed: (){
-            controller.firestoreService.addTitle(controller.textEditingController.text);
-            controller.textEditingController.clear();
-            Navigator.of(context).pop();
-          },
-          child: Text('Ekle')
-          )
-        ],
-      ));
-    }
     return Scaffold(
-      backgroundColor: CustomColors().scaffoldColor,
       appBar: AppBar(
         actions: [
-          TextButton(onPressed: (){}, child: Text('bugün'))
+          TextButton(onPressed: (){}, child: Text('bugün', style: TextStyle(color: CustomColors().floatingActionButtonColor))),
+          TextButton(onPressed: (){}, child: Text('gündem',style: TextStyle(color: CustomColors().floatingActionButtonColor))),
+          TextButton(onPressed: (){}, child: Text('tarihte bugün',style: TextStyle(color: CustomColors().floatingActionButtonColor))),
         ],
       ),
       body: Column(
         children: [
           Expanded(
             child: StreamBuilderContent(controller: controller))]),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: CustomColors().floatingActionButtonColor,
-        foregroundColor: Colors.black,
-        onPressed: openTitleBox,
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: Obx( () => CustomBottomNavigationBar(
         selectedIndex: itemController.selectedIndex.value,
         onItemTapped : (index) => itemController.onItemTapped(index),

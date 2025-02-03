@@ -2,13 +2,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreService {
-  final CollectionReference titles =
-      FirebaseFirestore.instance.collection('titles');
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final CollectionReference titles = FirebaseFirestore.instance.collection('titles');
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
   DateTime now = DateTime.now();
-  DateTime startOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day); // 00:00
-  DateTime endOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59, 59); // 23:59:59
+  DateTime startOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime endOfDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59, 59);
 
+
+  Future<Map<String, dynamic>?> getUserEntries() async {
+  try {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('entries')
+        .doc(userId)
+        .get();
+
+    if (!userDoc.exists) return null;
+    return userDoc.data() as Map<String, dynamic>;
+  } catch (e) {
+    print("Hata: $e");
+    return null;
+  }
+}
+
+  Future<void> signUp(email, password) async {
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email.text.trim(),
+          password: password.text.trim(),
+        );
+  }
 
   Future<void> addEntry(String titleId, String entryText) async {
     final entryCollection = titles.doc(titleId).collection('entries');
@@ -53,6 +77,10 @@ class FirestoreService {
     });
   }
 
+  Stream<DocumentSnapshot> getUserData(String uid) {
+    return _db.collection('users').doc(uid).snapshots();
+  }
+
   Future<void> deleteTitle(String docID) async {
     titles.doc(docID).delete();
   }
@@ -70,18 +98,7 @@ class FirestoreService {
     return searchResults;
   }
 
-  Future<User?> registerUser(String email, String password) async {
-    try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      );
-      return userCredential.user;
-    } catch (e) {
-      print('Kullanıcı kaydı sırasında hata: $e');
-      rethrow;
-    }
-  }
+  
 
   Future<User?> loginUser(String email, String password) async {
     try {
@@ -102,5 +119,9 @@ class FirestoreService {
 
   User? getCurrentUser() {
     return _auth.currentUser;
+  }
+
+  Future<DocumentSnapshot> getUserDataById(String userId) async {
+    return await _db.collection('users').doc(userId).get();
   }
 }

@@ -5,4 +5,5 @@ class CustomColors {
   Color scaffoldColor = Color.fromARGB(255, 27, 26, 26);
   Color floatingActionButtonColor = Color.fromARGB(255, 221, 185, 95);
   Color entryIconButtonColor = Color.fromARGB(255, 221, 185, 95);
+  Color boxDecoration =  Color.fromARGB(255, 128, 86, 83);
 }

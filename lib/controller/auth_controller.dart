@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tatli_sozluk/screens/auth/auth_page.dart';
-import 'package:tatli_sozluk/screens/auth/login_page.dart';
 import 'package:tatli_sozluk/screens/profile_view.dart';
 
 class AccountPageView extends StatefulWidget {
